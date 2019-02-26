@@ -7,6 +7,8 @@ import tensorflow as tf
 import cv2
 import time
 from PIL import Image
+import face_recognition
+import numpy as n
 
 
 class DetectorAPI:
@@ -60,7 +62,7 @@ class DetectorAPI:
         self.sess.close()
         self.default_graph.close()
   
-    def cutting(image_obj, coords, saved_location):
+    def cutting(image_obj, coords, number):
 
         """
     
@@ -88,65 +90,95 @@ class DetectorAPI:
         #cropped_image = image_obj.crop(coords)
     
         #cropped_image.save(saved_location)
-        cv2.imwrite( saved_location, cropped_image )
-        print( "Saved" )
+        cv2.imwrite( 'people/'+str(number)+'.jpg', cropped_image )
+        #print( "Saved" )
+        return cropped_image
+    
+    
+    def saveImage(image_obj, coords, name):
+        
+        x = coords[0];
+        y = coords[1];
+        w = coords[2];
+        h = coords[3];
+        
+        cropped_image = image_obj[x:w, y:h]
+    
+        cv2.imwrite( 'people/'+str(name)+'.jpg', cropped_image )
+
     
         #cropped_image.show()
 
 if __name__ == "__main__":
+    known_encodings =[]
+    known_indexes =[]
     model_path = 'faster_rcnn_inception_v2_coco/frozen_inference_graph.pb'
     odapi = DetectorAPI(path_to_ckpt=model_path)
     threshold = 0.7
     #1>RGP
     img=cv2.imread('p.jpg', 1)
-    
+    testImage = cv2.imread("2.jpg")
+    Testrgb = cv2.cvtColor(testImage, cv2.COLOR_BGR2RGB)
+    #print(face_recognition.face_encodings(Testrgb))
+    test_face_encoding_array = face_recognition.face_encodings(Testrgb)[0]
     #cap = cv2.VideoCapture('/test.avi')
 
    # while True:
        # r, img = cap.read()
-    img = cv2.resize(img, ( 1024, 682))
+    #img = cv2.resize(img, ( 1024, 682))
     #cropped_image.save(saved_location)
-    cv2.imwrite( "gray_Image.jpg", img )
+    #cv2.imwrite( "gray_Image.jpg", img )
     boxes, scores, classes, num = odapi.processFrame(img)
     
     # Visualization of the results of a detection.
     
     ##
-    print (str(len(boxes)))
+    #print (str(len(boxes)))
     for i in range(len(boxes)):
         # Class 1 represents human
         if classes[i] == 1 and scores[i] > threshold:
             print ("entered")
             box = boxes[i]
             x,y,width,heigth=box
-            print(img.shape)
-            DetectorAPI.cutting(img, (x,y,width,heigth), "single_"+str(i)+".jpg")
-            #new=tf.image.crop_to_bounding_box(img, y ,x , y+heigth,1102)
-            #print(new)
-            #img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-            #image=Image.open("p.jpg")
-            #cropped=image.crop((box))
-            #cropped.save("i.jpg");
-            #x, y, wi..dth, height=boxes[i]
-            #print(box)
-            #print(x,y,width,heigth)
-            #cv2.imwrite("single"+str(i)+".png", img[box] )
-           # newImg=img[y:y+height , x:x+width, :]
-            ##
-            #x, y, w, h =box
-            #print(box[0])
-            #roi = img[y:y+height, x:x+width]
-            #cv2.imwrite("single"+i+".png", roi)
-            ##cv2.rectangle(img, (x,y), (x+w, y+h), (255,0,0), 2)
-            #newImg=cv2.rectangle(img,(y,x), (x+w, y+h),(255,0,0),2)
-            #p#Obj=cv2.rectangle(img,(box[1],box[0]),(box[3],box[2]),(255,0,0),2)
-            #pobj=img[837:927+837,275:551+275]
-            #cv2.imwrite("single"+str(i)+".png",pobj )
+            
+            singleImage=DetectorAPI.cutting(img, (x,y,width,heigth), i)
+            
+            rgb = cv2.cvtColor(singleImage, cv2.COLOR_BGR2RGB)
+            
+            face_encoding_array = face_recognition.face_encodings(rgb)
+            
+            if len(face_encoding_array) >= 1 :
+                print('there is a face')
+                face_encoding = face_encoding_array[0]
+                #face_encoding_bytes = face_encoding.tobytes()
+                known_encodings.append(face_encoding)
+                known_indexes.append(i)
+                #np.save('people/face_encoding'+str(i)+'.npy', face_encoding_bytes)
+            
+    print (known_encodings)        
+    face_distances = face_recognition.face_distance(known_encodings, test_face_encoding_array)
     
-   # cv2.imshow("preview", img )
-    #key = cv2.waitKey(1)
-   
-    # if key & 0xFF == ord('q'):
-    #    return 0
+    known_tupples = []
+    
+    for j in range(len(face_distances)):
+        known_tupples.append({'index':str(known_indexes[j]), 'distance':face_distances[j]})
+        
+    #print (face_distances) 
+    min_distance_array = [x['distance'] for x in known_tupples]
+    min_distance = max(min_distance_array)
+    
+    min_index = 0
+    for i in range(len(known_tupples)) :
+        if known_tupples[i]['distance'] < min_distance :
+            min_distance = known_tupples[i]['distance']
+            min_index = known_tupples[i]['index']
+        
+    print (min_distance)
+    print (min_index)
+    
+    DetectorAPI.saveImage(img, boxes[int(min_index)], min_distance)
+    print ( known_tupples )        
+            
+        
       
 
