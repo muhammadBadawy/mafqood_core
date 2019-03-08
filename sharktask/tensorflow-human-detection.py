@@ -82,7 +82,7 @@ class DetectorAPI:
         #cropped_image = image_obj.crop(coords)
     
         #cropped_image.save(saved_location)
-        cv2.imwrite( '../'+str(number)+'.jpg', cropped_image )
+        #cv2.imwrite( '../'+str(number)+'.jpg', cropped_image )
         #print( "Saved" )
         return cropped_image
     
