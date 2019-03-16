@@ -7,6 +7,7 @@ import tensorflow as tf
 import cv2
 import time
 import face_recognition
+import sys
 
 
 
@@ -78,12 +79,6 @@ class DetectorAPI:
         h = coords[3]
         
         cropped_image = image_obj[x:w, y:h]
-    
-        #cropped_image = image_obj.crop(coords)
-    
-        #cropped_image.save(saved_location)
-        #cv2.imwrite( '../'+str(number)+'.jpg', cropped_image )
-        #print( "Saved" )
         return cropped_image
     
     
@@ -102,6 +97,7 @@ class DetectorAPI:
         #cropped_image.show()
 
 if __name__ == "__main__":
+    print(sys.argv[0])
     known_encodings =[]
     known_indexes =[]
     count=0
@@ -109,8 +105,8 @@ if __name__ == "__main__":
     odapi = DetectorAPI(path_to_ckpt=model_path)
     threshold = 0.7
     #1>RGP
-    img=cv2.imread('../TestImages/multiObject.jpg', 1)
-    face_detc_image = cv2.imread("../TestImages/faecTest/someOne.jpg")
+    img=cv2.imread(str(sys.argv[1]), 1)#../TestImages/multiObject.jpg
+    face_detc_image = cv2.imread(str(sys.argv[2]))#../TestImages/faecTest/someOne.jpg
     face_detc_image_rgp = cv2.cvtColor(face_detc_image, cv2.COLOR_BGR2RGB)
     test_face_encoding_array = face_recognition.face_encodings(face_detc_image_rgp)[0]
     #print (img)
