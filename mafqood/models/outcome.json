@@ -1,0 +1,37 @@
+{
+    "fields": [
+        {
+            "name": "reason",
+            "type": "text"
+        },
+	      {
+            "name": "price",
+            "type": "integer#unsigned"
+        },
+	      {
+            "name": "type_id",
+            "type": "integer#unsigned"
+        }
+    ],
+    "relationships": [
+        {
+            "name": "outcomeType",
+            "type": "belongsTo",
+            "class": "App\\outcome_type"
+        }
+    ],
+    "validations": [
+        {
+            "field": "reason",
+            "rules": "required"
+        },
+	      {
+            "field": "price",
+            "rules": "required|numeric"
+        },
+	      {
+            "field": "type_id",
+            "rules": "required|numeric"
+        }
+    ]
+}

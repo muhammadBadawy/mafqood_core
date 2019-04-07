@@ -1,0 +1,1 @@
+py storeFace.py ../TestImages/single.jpg

@@ -1,0 +1,78 @@
+{
+    "fields": [
+        {
+            "name": "name",
+            "type": "string"
+        },
+	      {
+            "name": "phone",
+            "type": "string"
+        },
+	      {
+            "name": "email",
+            "type": "string"
+        },
+        {
+            "name": "gender",
+            "type": "select",
+            "options": {
+                "0": "Male",
+                "1": "Female"
+            }
+        },
+	      {
+            "name": "birth",
+            "type": "date"
+        },
+	      {
+            "name": "area_id",
+            "type": "integer#unsigned"
+        },
+	      {
+            "name": "lat",
+            "type": "integer#unsigned"
+        },
+	      {
+            "name": "lang",
+            "type": "integer#unsigned"
+        },
+	      {
+            "name": "mental_condition",
+            "type": "string"
+        }
+    ],
+    "validations": [
+        {
+            "field": "name",
+            "rules": "required|max:255"
+        },
+	      {
+            "field": "email",
+            "rules": "required|max:255|email"
+        },
+	      {
+            "field": "phone",
+            "rules": "required|max:255"
+        },
+	      {
+            "field": "birth",
+            "rules": "required"
+        },
+	      {
+            "field": "gender",
+            "rules": "required"
+        },
+	      {
+            "field": "area_id",
+            "rules": "required|numeric"
+        },
+	      {
+            "field": "lat",
+            "rules": "numeric"
+        },
+	      {
+            "field": "lang",
+            "rules": "numeric"
+        }
+    ]
+}

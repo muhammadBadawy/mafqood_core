@@ -1,0 +1,9 @@
+some times in the inputs of the form 
+$client->phone or ''
+blade framework doesn't work
+so we use short handed if insted
+isset($client->phone) ? $client->phone : ''
+---------------------------------------------------
+replace crud generator CrudControllerCommand.php in the path
+vendor\appzcoder\crud-generator\src\Commands
+with the file here

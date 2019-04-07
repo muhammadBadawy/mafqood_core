@@ -1,0 +1,57 @@
+{
+    "fields": [
+        {
+            "name": "name",
+            "type": "string"
+        },
+	      {
+            "name": "phone",
+            "type": "string"
+        },
+	      {
+            "name": "nid",
+            "type": "string"
+        },
+	      {
+            "name": "address",
+            "type": "string"
+        },
+	      {
+            "name": "nid_pic",
+            "type": "file"
+        },
+	      {
+            "name": "driving_licence_pic",
+            "type": "file"
+        },
+	      {
+            "name": "bike_licence_pic",
+            "type": "file"
+        }
+    ],
+    "relationships": [
+        {
+            "name": "order",
+            "type": "hasMany",
+            "class": "App\\Order"
+        }
+    ],
+    "validations": [
+        {
+            "field": "name",
+            "rules": "required|max:255"
+        },
+	      {
+            "field": "phone",
+            "rules": "required|numeric"
+        },
+	      {
+            "field": "nid",
+            "rules": "required|numeric"
+        },
+	      {
+            "field": "address",
+            "rules": "required|max:255"
+        }
+    ]
+}

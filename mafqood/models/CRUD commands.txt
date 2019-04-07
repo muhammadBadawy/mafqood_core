@@ -1,0 +1,21 @@
+php artisan crud:generate Clients --fields_from_file="models/client.json" --view-path=client --controller-namespace=Client --route-group=client --form-helper=html
+
+php artisan crud:generate Addresses --fields_from_file="models/address.json" --view-path=address --controller-namespace=Address --route-group=address --form-helper=html
+
+php artisan crud:generate Drivers --fields_from_file="models/driver.json" --view-path=driver --controller-namespace=Driver --route-group=driver --form-helper=html
+
+php artisan crud:generate Reports --fields_from_file="models/report.json" --view-path=report --controller-namespace=Report --route-group=report --form-helper=html
+
+php artisan crud:generate Outcome_types --fields_from_file="models/outcome_type.json" --view-path=outcome_type --controller-namespace=Outcome_type --route-group=outcome_type --form-helper=html
+
+php artisan crud:generate Outcomes --fields_from_file="models/outcome.json" --view-path=outcome --controller-namespace=Outcome --route-group=outcome --form-helper=html
+
+php artisan crud:generate Orders --fields_from_file="models/order.json" --view-path=order --controller-namespace=Order --route-group=order --form-helper=html
+
+php artisan crud:generate Order_status --fields_from_file="models/order_status.json" --view-path=order_status --controller-namespace=Order_status --route-group=order_status --form-helper=html
+
+php artisan crud:generate Order_types --fields_from_file="models/order_type.json" --view-path=order_type --controller-namespace=Order_type --route-group=order_type --form-helper=html
+
+php artisan crud:generate Payment_methods --fields_from_file="models/payment_method.json" --view-path=payment_method --controller-namespace=Payment_method --route-group=payment_method --form-helper=html
+
+php artisan crud:generate Order_items --fields_from_file="models/order_item.json" --view-path=order_item --controller-namespace=Order_item --route-group=order_item --form-helper=html
