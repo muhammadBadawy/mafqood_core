@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">MAFQOOD</string>
+    <string name="governorate">Select a governorate</string>
+    <string-array name="governorate_array">
+        <item>G1</item>
+        <item>G2</item>
+        <item>G3</item>
+        <item>G4</item>
+    </string-array>
+</resources>
