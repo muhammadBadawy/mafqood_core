@@ -28,21 +28,87 @@ public class UserInfoActivity extends AppCompatActivity implements AdapterView.O
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
         if(i==0){
-            district=new String[]{"11","12","13"};
+            district=new String[]{"التجمع الخامس - الأحياء والجولف","التجمع الخامس - المستثمرين الجنوبية","التجمع الخامس - المستثمرين الشمالية","التجمع الخامس - الياسمين والبنفسج","التجمع الخامس - جانووب الاكادمية","التجمع الخامس - حي النرجس","التجمع الثالث","االتجمع الأول","ارض الجولف","الدقي","الرحاب","الزاوية الحمراء"," الزمالك","الزيتون","الضاهر","العباسية","العجوزة","القرية الذكية","القطامية","المعادي - الكورنيش","المعادي - جديدة","المعادي القديمة","المقطم","المنيل","المهندسين","النزهة الجديدة","المطرية"," الزمالك","السلام","بدر","جاردن سيتي","حدائق القبة","زهراء المعادي","شبرا","شبرا الخيمة","عين شمس","فيصل","مدينة 15 مايو","مدينة الشروق","مدينة العبور","مدينة نصر - حي السابع - حي الثامن- حي العاشر","مدينة نصر - زهراء","مدينة نصر - مكرم عباس- طياران","مدينة نصر - ملعب الأزهر","مدينتي","مساكن شيراتون","مصر الجديدة","مصر القديمة","مطار القاهرة","وسط البلد"};
         }
         if(i==1){
-            district=new String[]{"21","22","23"};
+            district=new String[]{"السادس من أكتوبر - الحصري و الاحياء","السادس من أكتوبر - المنطقة الصناعية","السادس من أكتوبر- طريق الواحات","الشيخ زايد","بولاق","الوراق","الدقي","حدائق الاهرام","العمرانية","الهرم","الحوامدية","البدرشين","كرداسة"};
         }
         if(i==2){
-            district=new String[]{"31","32","33"};
+            district=new String[]{"الاسكندرية","المنتزة","العامرية","العجمي","برج العرب","برج العرب الجديد"};
         }
         if(i==3){
-            district=new String[]{"41","42","43"};
+            district=new String[]{"بنها","قليوب","شبرا الخيمة","القناطر الخيرية","الخانكة","طوخ","الخصوص"};
+        }
+        if(i==4){
+            district=new String[] {"دمنهور","كفر الدوار","وادي النطرون"};
+        }
+        if(i==5){
+            district=new String[]{"مرسي مطروح","الحمام","العلمين","الضبعة","السلوم","سيوة"};
+        }
+        if(i==6){
+            district=new String[]{"دمياط","راس البر"};
+        }
+        if(i==7){
+            district=new String[]{"الدقهلية","المنصورة","ميت غمر","طلخا","المنزلة","الجمالية","المطرية"};
+        }
+        if(i==8){
+            district=new String[]{"كفر الشيخ","دسوق","بلطيم"};
+        }
+        if(i==9){
+            district=new String[]{"الغربية","طنطا","المحلة","كفر الزيات","زفتي"};
+        }
+        if(i==10){
+            district=new String[]{"المنوفية","شبين الكوم","مدينة السادات","الزقازيق","العاشر من رمضان","منيا القمح","بابيس"};
+        }
+        if(i==11){
+            district=new String[]{"بورسعيد"};
+        }
+        if(i==12){
+            district=new String[] {"الاسماعيلية"};
+        }
+        if(i==13){
+            district=new String[]{"السويس"};
+        }
+        if(i==14){
+            district=new String[]{"شمال سيناء"};
+        }
+        if(i==15){
+            district=new String[]{"شرم الشيخ","دهب"};
+        }
+
+        if(i==16){
+            district=new String[]{"بني سويف"};
+        }
+        if(i==17){
+            district=new String[]{"الفيوم"};
+        }
+        if(i==18){
+            district=new String[]{"المنيا"};
+        }
+        if(i==19){
+            district=new String[] {"اسيوط"};
+        }
+        if(i==20){
+            district=new String[]{"الوادي الجديد"};
+        }
+        if(i==21){
+            district=new String[]{"الغردقة","راس غارب","سافاجا","مرسي علم"};
+        }
+        if(i==22){
+            district=new String[]{"سوهاج"};
+        }
+        if(i==23){
+            district=new String[]{"قنا"};
+        }
+        if(i==24){
+            district=new String[]{"الاقصر"};
+        }
+        if(i==25){
+            district=new String[]{"اسوان"};
         }
         ArrayAdapter<String> District_adapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item,district);
         DistrictSpinner.setAdapter(District_adapter);
     }
-
 
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {

@@ -2,9 +2,32 @@
     <string name="app_name">MAFQOOD</string>
     <string name="governorate">Select a governorate</string>
     <string-array name="governorate_array">
-        <item>G1</item>
-        <item>G2</item>
-        <item>G3</item>
-        <item>G4</item>
+        <item>القاهرة</item>
+        <item>الجيزة</item>
+        <item>الاسكندرية</item>
+        <item>القليوبية</item>
+        <item>البحيرة</item>
+        <item>مطروح</item>
+        <item>دمياط</item>
+        <item>الدقهلية</item>
+        <item>اكفر الشيخ</item>
+        <item>الغربية</item>
+        <item>المنوفية</item>
+        <item>بورسعيد</item>
+        <item>الاسماعيلية</item>
+        <item>السويس</item>
+        <item>شمال سيناء</item>
+        <item>جنوب سيناء</item>
+        <item>بني سويف</item>
+        <item>الفيوم</item>
+        <item>المنيا</item>
+        <item>اسيوط</item>
+        <item>الوادي الجديد</item>
+        <item>البحر الاحمر</item>
+        <item>سوهاج</item>
+        <item>قنا</item>
+        <item>الاقصر</item>
+        <item>اسوان</item>
     </string-array>
 </resources>
+
