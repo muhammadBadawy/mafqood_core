@@ -13,15 +13,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.view.View.OnClickListener;
 
+import java.util.ArrayList;
+
 public class UserInfoActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     String district[] = null;
     Spinner DistrictSpinner;
+    String Selected_district;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_info);
+
         Spinner GovernorateSpinner = (Spinner) findViewById(R.id.Governorate);
-        DistrictSpinner = (Spinner) findViewById(R.id.District);
+        //DistrictSpinner = (Spinner) findViewById(R.id.District);
         GovernorateSpinner.setOnItemSelectedListener(this);
     }
 
@@ -106,8 +110,24 @@ public class UserInfoActivity extends AppCompatActivity implements AdapterView.O
         if(i==25){
             district=new String[]{"اسوان"};
         }
+        DistrictSpinner = (Spinner) findViewById(R.id.District);
         ArrayAdapter<String> District_adapter = new ArrayAdapter<String>(this, R.layout.support_simple_spinner_dropdown_item,district);
         DistrictSpinner.setAdapter(District_adapter);
+
+        DistrictSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                Selected_district= (String) DistrictSpinner.getSelectedItem();
+//                    Toast.makeText(getApplicationContext(),(String) DistrictSpinner.getSelectedItem() ,Toast.LENGTH_SHORT).show();
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
+
     }
 
     @Override
@@ -116,6 +136,8 @@ public class UserInfoActivity extends AppCompatActivity implements AdapterView.O
     }
 
     public void onClickBtn(View view) {
+
+
         EditText emailValidate = (EditText)findViewById(R.id.email);
         EditText phoneValidate = (EditText)findViewById(R.id.phone);
 
@@ -129,9 +151,17 @@ public class UserInfoActivity extends AppCompatActivity implements AdapterView.O
 // onClick of button perform this simplest code.
         if (email.matches(emailPattern)) {massege += " valid email address ";} else { massege +=" Invalid email address ";}
         if(phone.matches(phonePattern)){ massege +="and valid phone number"; } else { massege+="and Invalid phone number"; }
-        Toast.makeText(getApplicationContext(),massege,Toast.LENGTH_SHORT).show();
+
         if (email.matches(emailPattern)&&phone.matches(phonePattern)){
+            //Toast.makeText(getApplicationContext(),massege,Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this,MainActivity.class);
+        Bundle bundle=new Bundle();
+
+            bundle.putString("Email", email);
+            bundle.putString("Phone", phone);
+            bundle.putString("District", Selected_district);
+            intent.putExtras(bundle);
+
         startActivity(intent);}
     }
 }

@@ -1,6 +1,7 @@
 package com.example.parsaniahardik.custom_camera;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.hardware.Camera;
@@ -43,6 +44,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Bundle bundle=getIntent().getExtras();
+
+        String phone = bundle.getString("Phone");
+        String email = bundle.getString("Email");
+        String district = bundle.getString("District");
+        Toast.makeText(getApplicationContext(),phone+email+district,Toast.LENGTH_SHORT).show();
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         myContext = this;
