@@ -8,7 +8,9 @@ import android.hardware.Camera;
 import android.media.MediaScannerConnection;
 import android.os.Environment;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
+import android.view.View;
 import android.view.WindowManager;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -28,16 +30,21 @@ import android.location.LocationManager;
 import android.location.LocationListener;
 import android.location.Location;
 
-public class MainActivity extends AppCompatActivity {
-    private static final String IMAGE_DIRECTORY = "/CustomImage";
 
-    private Camera mCamera;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+public class MainActivity extends AppCompatActivity {
+     private Camera mCamera;
     private CameraPreview mPreview;
     private Camera.PictureCallback mPicture;
     private Context myContext;
     private LinearLayout cameraPreview;
     private boolean cameraFront = false;
     public static Bitmap bitmap;
+    JSONObject jsonObject;
+    public static String MYPIC="nothing to show";
+    Location location;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,13 +97,42 @@ public class MainActivity extends AppCompatActivity {
         // Have another for GPS provider just in case.
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 10, new Listener());
         // Try to request the location immediately
-        Location location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+        location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
         if (location == null){
             location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         }
         if (location != null){
             handleLatLng(location.getLatitude(), location.getLongitude());
         }
+
+        jsonObject=new JSONObject();
+        try {
+            jsonObject.put("phone",phone);
+            jsonObject.put("email",email);
+            jsonObject.put("district",district);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Button btn =(Button)findViewById(R.id.btn);
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+
+                    jsonObject.put("Lat",location.getLatitude());
+                    jsonObject.put("Long",location.getLongitude());
+                    jsonObject.put("image",MYPIC);
+
+
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                Log.d("myTag", String.valueOf(jsonObject));
+            }
+        });
     }
 
 
@@ -180,46 +216,51 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public String saveImage(Bitmap myBitmap) {
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        myBitmap.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
-        File wallpaperDirectory = new File(
-                Environment.getExternalStorageDirectory() + IMAGE_DIRECTORY);
-        // have the object build the directory structure, if needed.
+//    public void saveImage(Bitmap myBitmap) {
+//        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+//        myBitmap.compress(Bitmap.CompressFormat.JPEG, 90, bytes);
+//        File wallpaperDirectory = new File(
+//                Environment.getExternalStorageDirectory() + IMAGE_DIRECTORY);
+//        // have the object build the directory structure, if needed.
+//
+//        if (!wallpaperDirectory.exists()) {
+//            Log.d("dir", "" + wallpaperDirectory.mkdirs());
+//            wallpaperDirectory.mkdirs();
+//        }
+//
+//        try {
+//            File f = new File(wallpaperDirectory, Calendar.getInstance()
+//                    .getTimeInMillis() + ".jpg");
+//            f.createNewFile();   //give read write permission
+//            FileOutputStream fo = new FileOutputStream(f);
+//            fo.write(bytes.toByteArray());
+//            MediaScannerConnection.scanFile(this,
+//                    new String[]{f.getPath()},
+//                    new String[]{"image/jpeg"}, null);
+//            fo.close();
+//
+//            return f.getAbsolutePath();
+//        } catch (IOException e1) {
+//            e1.printStackTrace();
+//        }
+//
+//
+//    }
 
-        if (!wallpaperDirectory.exists()) {
-            Log.d("dir", "" + wallpaperDirectory.mkdirs());
-            wallpaperDirectory.mkdirs();
-        }
-
-        try {
-            File f = new File(wallpaperDirectory, Calendar.getInstance()
-                    .getTimeInMillis() + ".jpg");
-            f.createNewFile();   //give read write permission
-            FileOutputStream fo = new FileOutputStream(f);
-            fo.write(bytes.toByteArray());
-            MediaScannerConnection.scanFile(this,
-                    new String[]{f.getPath()},
-                    new String[]{"image/jpeg"}, null);
-            fo.close();
-
-            return f.getAbsolutePath();
-        } catch (IOException e1) {
-            e1.printStackTrace();
-        }
-        return "";
-
-    }
 
     private Camera.PictureCallback getPictureCallback() {
         Camera.PictureCallback picture = new Camera.PictureCallback() {
             @Override
             public void onPictureTaken(byte[] data, Camera camera) {
                 bitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
-                saveImage(MainActivity.bitmap);
+                //saveImage(MainActivity.bitmap);
+                ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+                MYPIC= Base64.encodeToString(byteArrayOutputStream.toByteArray(), Base64.DEFAULT);
             }
         };
         return picture;
     }
+
 
 }
