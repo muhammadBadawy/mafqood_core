@@ -17,6 +17,9 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
+
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
@@ -31,11 +34,19 @@ import android.location.LocationListener;
 import android.location.Location;
 
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
-     private Camera mCamera;
+    private Camera mCamera;
     private CameraPreview mPreview;
     private Camera.PictureCallback mPicture;
     private Context myContext;
@@ -61,9 +72,9 @@ public class MainActivity extends AppCompatActivity {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
         myContext = this;
         int cameraId = findBackFacingCamera();
-            mCamera = Camera.open(cameraId);
-            mCamera.setDisplayOrientation(90);
-            mPicture = getPictureCallback();
+        mCamera = Camera.open(cameraId);
+        mCamera.setDisplayOrientation(90);
+        mPicture = getPictureCallback();
 
         cameraPreview = (LinearLayout) findViewById(R.id.cPreview);
         mPreview = new CameraPreview(myContext, mCamera);
@@ -109,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             jsonObject.put("phone",phone);
             jsonObject.put("email",email);
-            jsonObject.put("district",district);
+            jsonObject.put("area_id",district);
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -121,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
                 try {
 
                     jsonObject.put("Lat",location.getLatitude());
-                    jsonObject.put("Long",location.getLongitude());
+                    jsonObject.put("Lang",location.getLongitude());
                     jsonObject.put("image",MYPIC);
 
 
@@ -129,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
+                send();
                 Log.d("myTag", String.valueOf(jsonObject));
             }
         });
@@ -185,16 +196,16 @@ public class MainActivity extends AppCompatActivity {
 
     public void onResume() {
 
-            super.onResume();
-            if(mCamera == null) {
-                mCamera = Camera.open();
-                mCamera.setDisplayOrientation(90);
-                mPicture = getPictureCallback();
-                mPreview.refreshCamera(mCamera);
-                Log.d("nu", "null");
-            }else {
-                Log.d("nu","no null");
-            }
+        super.onResume();
+        if(mCamera == null) {
+            mCamera = Camera.open();
+            mCamera.setDisplayOrientation(90);
+            mPicture = getPictureCallback();
+            mPreview.refreshCamera(mCamera);
+            Log.d("nu", "null");
+        }else {
+            Log.d("nu","no null");
+        }
 
     }
 
@@ -260,6 +271,31 @@ public class MainActivity extends AppCompatActivity {
             }
         };
         return picture;
+    }
+    public void send()
+    {
+
+        String url = "https://armless-explosives.000webhostapp.com/post.php";
+        RequestQueue queue = Volley.newRequestQueue(this);
+
+        StringRequest postRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>()
+                {
+                    @Override
+                    public void onResponse(String response) {
+                        // response
+                        Log.d("Response", response);
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+                        Log.d("Error.Response", String.valueOf(error));
+                    }
+                });
+        queue.add(postRequest);
     }
 
 

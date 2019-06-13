@@ -2,6 +2,7 @@
     <string name="app_name">MAFQOOD</string>
     <string name="governorate">Select a governorate</string>
     <string-array name="governorate_array">
+        <item>مصر</item>
         <item>القاهرة</item>
         <item>الجيزة</item>
         <item>الاسكندرية</item>
@@ -29,5 +30,5 @@
         <item>الاقصر</item>
         <item>اسوان</item>
     </string-array>
-</resources>
 
+</resources>
