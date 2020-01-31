@@ -1,0 +1,18 @@
+{
+    "fields": [
+        {
+            "name": "name",
+            "type": "string"
+        },
+        {
+            "name": "appearance_times",
+            "type": "integer#unsigned"
+        }
+    ],
+    "validations": [
+        {
+            "field": "name",
+            "rules": "max:255"
+        }
+    ]
+}

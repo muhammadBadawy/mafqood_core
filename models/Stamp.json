@@ -1,0 +1,38 @@
+{
+    "fields": [
+        {
+            "name": "print",
+            "type": "longtext"
+        },
+        {
+            "name": "image",
+            "type": "string"
+        },
+        {
+            "name": "bbox",
+            "type": "longtext"
+        },
+	      {
+            "name": "report_id",
+            "type": "integer#unsigned"
+        }
+    ],
+    "validations": [
+        {
+            "field": "print",
+            "rules": "required"
+        },
+	      {
+            "field": "image",
+            "rules": "required|max:255"
+        },
+	      {
+            "field": "bbox",
+            "rules": "required"
+        },
+	      {
+            "field": "report_id",
+            "rules": "required|numeric"
+        }
+    ]
+}

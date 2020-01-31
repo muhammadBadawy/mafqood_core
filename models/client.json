@@ -1,0 +1,29 @@
+{
+    "fields": [
+        {
+            "name": "name",
+            "type": "string"
+        },
+        {
+            "name": "phone",
+            "type": "string"
+        }
+    ],
+    "validations": [
+        {
+            "field": "name",
+            "rules": "required|max:255"
+        },
+        {
+            "field": "phone",
+            "rules": "required|numeric"
+        }
+    ],
+    "relationships": [
+        {
+            "name": "address",
+            "type": "hasMany",
+            "class": "App\\Address"
+        }
+    ]
+}

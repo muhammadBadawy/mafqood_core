@@ -1,0 +1,30 @@
+{
+    "fields": [
+        {
+            "name": "missing_id",
+            "type": "string"
+        },
+        {
+	    "name": "found_id",
+            "type": "string"
+	},
+        {
+	    "name": "serial",
+            "type": "string"
+	}
+    ],
+    "validations": [
+        {
+            "field": "missing_id",
+            "rules": "numeric"
+        },
+        {
+	    "field": "found_id",
+            "rules": "numeric"
+	},
+        {
+	    "field": "serial",
+            "rules": "max:255|numeric"
+	}
+    ]
+}

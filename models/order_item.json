@@ -1,0 +1,34 @@
+{
+    "fields": [
+        {
+            "name": "order_id",
+            "type": "integer#unsigned"
+        },
+	      {
+            "name": "item_id",
+            "type": "integer#unsigned"
+        }
+    ],
+    "relationships": [
+        {
+            "name": "order",
+            "type": "belongsTo",
+            "class": "App\\Order"
+        },
+        {
+            "name": "item",
+            "type": "belongsTo",
+            "class": "App\\Item"
+        }
+    ],
+    "validations": [
+	      {
+            "field": "order_id",
+            "rules": "required|numeric"
+        },
+	      {
+            "field": "item_id",
+            "rules": "required|numeric"
+        }
+    ]
+}

@@ -1,0 +1,22 @@
+{
+    "fields": [
+        {
+            "name": "name",
+            "type": "string"
+        },
+        {
+	    "name": "city_id",
+            "type": "string"
+	}
+    ],
+    "validations": [
+        {
+            "field": "name",
+            "rules": "max:255"
+        },
+        {
+	    "field": "city_id",
+            "rules": "numeric"
+	}
+    ]
+}

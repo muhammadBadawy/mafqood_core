@@ -1,0 +1,9 @@
+php artisan crud:generate Reports --fields_from_file="models/report.json" --view-path=report --controller-namespace=Report --route-group=report --form-helper=html
+
+php artisan crud:generate Stamps --fields_from_file="models/stamp.json" --view-path=stamp --controller-namespace=Stamp --route-group=stamp --form-helper=html
+
+php artisan crud:generate Suspects --fields_from_file="models/suspect.json" --view-path=suspect --controller-namespace=Suspect --route-group=suspect --form-helper=html
+
+php artisan crud:generate Cities --fields_from_file="models/city.json" --view-path=city --controller-namespace=City --route-group=city --form-helper=html
+
+php artisan crud:generate Matches --fields_from_file="models/match.json" --view-path=match --controller-namespace=Match --route-group=match --form-helper=html
